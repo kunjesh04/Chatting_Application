@@ -19,7 +19,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:riv_corner_radius="@dimen/_8sdp"/>
+        app:riv_corner_radius="@dimen/_8sdp"
+        />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageSignOut"
@@ -93,7 +94,7 @@
         android:layout_marginRight="@dimen/_24sdp"
         android:layout_marginBottom="@dimen/_24sdp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/person_addadd_icon_black"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

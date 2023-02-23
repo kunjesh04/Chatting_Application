@@ -131,7 +131,7 @@
             android:layout_marginLeft="@dimen/_4sdp"
             android:padding="@dimen/_8sdp"
             android:src="@drawable/send_icon"
-            android:tint="@color/white"/>
+            android:tint="@color/pure_black"/>
 
 
     </FrameLayout>
@@ -151,7 +151,7 @@
         android:inputType="text"
         android:paddingStart="@dimen/_16sdp"
         android:paddingEnd="@dimen/_16sdp"
-        android:textColor="@color/black"
+        android:textColor="@color/black1"
         android:textColorHint="@color/secondary_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/layoutSend"

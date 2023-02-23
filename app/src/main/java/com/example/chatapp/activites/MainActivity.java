@@ -1,5 +1,7 @@
 package com.example.chatapp.activites;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,8 +9,10 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.ContextMenu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.chatapp.R;
 import com.example.chatapp.adapters.RecentConversationsAdapter;
 import com.example.chatapp.databinding.ActivityMainBinding;
 import com.example.chatapp.listeners.ConversationListener;
@@ -23,6 +27,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +41,7 @@ public class MainActivity extends BaseActivity implements ConversationListener {
     private List<ChatMessage> conversations;
     private RecentConversationsAdapter conversationsAdapter;
     private FirebaseFirestore database;
+    RoundedImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,15 @@ public class MainActivity extends BaseActivity implements ConversationListener {
         setListeners();
         getToken();
         listenConversations();
+
+        profile = findViewById(R.id.imageProfile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            }
+        });
+
     }
 
     private void init(){
@@ -58,9 +73,11 @@ public class MainActivity extends BaseActivity implements ConversationListener {
     }
 
     private void setListeners(){
-        binding.imageSignOut.setOnClickListener(v -> signOut());
+        binding.imageSignOut.setOnClickListener(v -> logOutAlert());
         binding.fabNewChat.setOnClickListener(v ->
                 startActivity(new Intent(getApplicationContext(), UsersActivity.class)));
+        binding.imageProfile.setOnClickListener(v -> 
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class)));
     }
 
     private void loadUserDetails(){
@@ -165,20 +182,28 @@ public class MainActivity extends BaseActivity implements ConversationListener {
         intent.putExtra(Constants.KEY_USER, user);
         startActivity(intent);
     }
+    
+    public void logOutAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Log Out ?");
+        builder.setMessage(String.format("Are you sure you want to log out as %s ?", preferenceManager.getString(Constants.KEY_NAME)));
+        builder.setCancelable(false);
+        builder.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                signOut();
+            }
+        });
+        builder.setNegativeButton("Go Back", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                closeOptionsMenu();
+            }
+        });
 
-    @Override
-    public void registerForContextMenu(View view) {
-        super.registerForContextMenu(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0,v.getId(),0, "Pin to Top");
-        menu.add(1,v.getId(),1, "History");
-        menu.add(1,v.getId(),0, "Search");
-        menu.add(0,v.getId(),1, "Edit");
     }
 
 }

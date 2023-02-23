@@ -1,12 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="20dp"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/light_yellow"
     tools:context=".activites.ProfileActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- Pfp -->
+        <FrameLayout
+            android:id="@+id/layoutimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageProfile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/background_image"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                />
 
 
-</RelativeLayout>
+        </FrameLayout>
+
+        <!-- Username -->
+        <TextView
+            android:id="@+id/username"
+            style="@android:style/Widget.TextView.PopupMenu"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/name"
+            android:textAlignment="center"
+            android:textColor="@color/primary_text"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <!--        Gamifying Section-->
+        <LinearLayout
+            android:id="@+id/gamify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/badge_container"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:background="@color/primary_dark"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="50dp"
+                    android:layout_marginStart="8dp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:max="100"
+                    android:progress="75"/>
+                <TextView
+                    android:id="@+id/level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Level 1"
+                    android:textSize="16dp"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/black1" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!-- Line Image 1 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="25dp"
+            android:paddingTop="25dp">
+
+            <ImageView
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/line"/>
+
+        </FrameLayout>
+
+        <!-- Interests Section -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Interests Text  -->
+            <TextView
+                android:id="@+id/InterestsTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Interests"
+                android:textColor="@color/black1"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textSize="20dp" />
+
+            <!--Interests1-->
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/interest1"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:padding="15dp"
+                android:layout_marginStart="8dp"
+                android:layout_below="@id/InterestsTxt"
+                app:riv_oval="true"
+                android:background="@drawable/background_interests">
+
+            </com.makeramen.roundedimageview.RoundedImageView>
+
+            <!--Interests2-->
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/interest2"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/InterestsTxt"
+                android:layout_marginStart="25dp"
+                android:layout_toEndOf="@id/interest1"
+                android:background="@drawable/background_interests"
+                app:riv_oval="true">
+
+            </com.makeramen.roundedimageview.RoundedImageView>
+
+            <!--Interests3-->
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/interest3"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:padding="15dp"
+                android:layout_below="@id/interest1"
+                app:riv_oval="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_interests">
+
+            </com.makeramen.roundedimageview.RoundedImageView>
+
+            <!--Interests4-->
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/interest4"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/interest2"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/interest1"
+
+                android:background="@drawable/background_interests"
+                app:riv_oval="true">
+
+            </com.makeramen.roundedimageview.RoundedImageView>
+
+            <!--Interests5-->
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/interest5"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/interest3"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/background_interests"
+                android:padding="15dp"
+                app:riv_oval="true">
+
+            </com.makeramen.roundedimageview.RoundedImageView>
+
+            <!--Interests6-->
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/interest6"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/interest4"
+                android:layout_marginStart="25dp"
+                android:layout_toEndOf="@id/interest1"
+                android:background="@drawable/background_interests"
+                app:riv_oval="true">
+
+            </com.makeramen.roundedimageview.RoundedImageView>
+
+        </RelativeLayout>
+
+        <!-- Line Image 2 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="25dp"
+            android:paddingTop="25dp">
+
+            <ImageView
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/line"/>
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:text="Profile Settings"
+            android:textColor="@color/black1"
+            android:textSize="16dp"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
