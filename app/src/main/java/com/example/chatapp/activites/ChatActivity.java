@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.chatapp.adapters.ChatAdapter;
 import com.example.chatapp.databinding.ActivityChatBinding;
@@ -64,27 +65,34 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void sendMessage(){
-        HashMap<String, Object> message = new HashMap<>();
-        message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
-        message.put(Constants.KEY_RECEIVER_ID, receiveUser.id);
-        message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
-        message.put(Constants.KEY_TIMESTAMP, new Date());
-        database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
-        if (conversationId != null){
-            updateConversation(binding.inputMessage.getText().toString());
+
+        String msg = binding.inputMessage.getText().toString().trim();
+        if (msg.trim().length() > 0){
+
+            HashMap<String, Object> message = new HashMap<>();
+            message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+            message.put(Constants.KEY_RECEIVER_ID, receiveUser.id);
+            message.put(Constants.KEY_MESSAGE, msg);
+            message.put(Constants.KEY_TIMESTAMP, new Date());
+            database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+            if (conversationId != null){
+                updateConversation(binding.inputMessage.getText().toString());
+            } else {
+                HashMap<String, Object> conversation = new HashMap<>();
+                conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+                conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
+                conversation.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
+                conversation.put(Constants.KEY_RECEIVER_ID, receiveUser.id);
+                conversation.put(Constants.KEY_RECEIVER_NAME, receiveUser.name);
+                conversation.put(Constants.KEY_RECEIVER_IMAGE, receiveUser.image);
+                conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
+                conversation.put(Constants.KEY_TIMESTAMP, new Date());
+                addConversation(conversation);
+            }
+            binding.inputMessage.setText(null);
         } else {
-            HashMap<String, Object> conversation = new HashMap<>();
-            conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
-            conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
-            conversation.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
-            conversation.put(Constants.KEY_RECEIVER_ID, receiveUser.id);
-            conversation.put(Constants.KEY_RECEIVER_NAME, receiveUser.name);
-            conversation.put(Constants.KEY_RECEIVER_IMAGE, receiveUser.image);
-            conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
-            conversation.put(Constants.KEY_TIMESTAMP, new Date());
-            addConversation(conversation);
+            showToast("Please Type Something");
         }
-        binding.inputMessage.setText(null);
     }
 
     private void listenAvailabilityOfReceiver(){
@@ -221,5 +229,9 @@ public class ChatActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         listenAvailabilityOfReceiver();
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

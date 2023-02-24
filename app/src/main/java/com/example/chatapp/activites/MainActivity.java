@@ -7,9 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.view.ContextMenu;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.chatapp.R;
@@ -20,6 +18,9 @@ import com.example.chatapp.models.ChatMessage;
 import com.example.chatapp.models.User;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
@@ -42,6 +43,8 @@ public class MainActivity extends BaseActivity implements ConversationListener {
     private RecentConversationsAdapter conversationsAdapter;
     private FirebaseFirestore database;
     RoundedImageView profile;
+    FloatingActionButton newchat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,25 @@ public class MainActivity extends BaseActivity implements ConversationListener {
                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
             }
         });
+
+        newchat = findViewById(R.id.fabNewChat);
+        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.fabNewChat),
+                "Add Friend", "Start Your First Conversation")
+                .outerCircleColor(R.color.background_1)
+                .targetCircleColor(R.color.primary)
+                .cancelable(true)
+                .titleTextColor(R.color.pure_black)
+                .descriptionTextSize(20)
+                .titleTextSize(30),
+
+                new TapTargetView.Listener(){
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        startActivity(new Intent(getApplicationContext(), UsersActivity.class));
+                        finish();
+                    }
+                });
 
     }
 
@@ -169,6 +191,7 @@ public class MainActivity extends BaseActivity implements ConversationListener {
         documentReference.update(updates)
                 .addOnSuccessListener(unused -> {
                     preferenceManager.clear();
+                    Constants.isSignedIn = false;
                     Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
                     startActivity(intent);
                     finish();

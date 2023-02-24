@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    android:background="@color/light_yellow"
+    android:background="@color/white"
     tools:context=".activites.ProfileActivity">
 
     <LinearLayout
@@ -75,6 +75,7 @@
                     android:paddingTop="50dp"
                     android:layout_marginStart="8dp"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+
                     android:max="100"
                     android:progress="75"/>
                 <TextView

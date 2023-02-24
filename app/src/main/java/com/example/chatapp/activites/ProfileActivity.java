@@ -1,7 +1,5 @@
 package com.example.chatapp.activites;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,15 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.chatapp.R;
-import com.example.chatapp.databinding.ActivityMainBinding;
 import com.example.chatapp.databinding.ActivityProfileBinding;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 public class ProfileActivity extends AppCompatActivity {
+
+
 
     private PreferenceManager preferenceManager;
     ActivityProfileBinding binding;
